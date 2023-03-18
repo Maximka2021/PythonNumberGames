@@ -1,0 +1,39 @@
+{
+  "scores": [
+    {
+      "id": 1,
+      "username": "Maxim",
+      "score": 200
+    },
+    {
+      "id": 2,
+      "username": "Angel",
+      "score": 100
+    },
+    {
+      "id": 3,
+      "username": "Anton",
+      "score": 300
+    },
+    {
+      "username": "Henry",
+      "score": 200,
+      "id": 4
+    },
+    {
+      "username": "Ali",
+      "score": 300,
+      "id": 5
+    },
+    {
+      "username": "John",
+      "score": 300,
+      "id": 6
+    },
+    {
+      "username": "Patric",
+      "score": 300,
+      "id": 7
+    }
+  ]
+}

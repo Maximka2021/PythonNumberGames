@@ -1,23 +1,28 @@
 from random import randint
+import urllib.request, json, requests
 
-list = {'Maxim': 200, 'Chett': 200, 'Alina': 300}
 def main():
    user_res = input("Enter s or S to start the Game =>")
 
    while user_res != "s" and user_res != "S":
-       user_res = input("Wrond Input try again => ")
+       user_res = input("Wrong Input try again => ")
    start_game()
 
 def end_game():
-    print("Thanks for palying")
+    print("Thanks for playing")
 
 def showList(isWin, score):
     user_res = input("Press b to see Score Board => ")
     while user_res != "b":
-        user_res = input("Unkown Input, try again => ")
+        user_res = input("Unknown Input, try again => ")
     else:
-        for i in list:
-            print(f"{i}: {list[i]}")
+        url = "http://localhost:3000/scores"
+        with urllib.request.urlopen(url) as url:
+            data = json.load(url)
+            data = data[::-1]
+            print(data)
+            for i in data:
+                print(f"|{i['username']}: {i['score']}|")
 
     if isWin == True:
         user_score_res = input(f"Press y if you want to add your score or press q to end the game, {score} =>")
@@ -25,14 +30,21 @@ def showList(isWin, score):
             end_game()
         elif user_score_res == "y":
             username = input("Enter your username => ")
-            list[username] = score
-            for i in list:
-                print(f"{i}: {list[i]}")
+            url = "http://localhost:3000/scores"
+            r = requests.post(url, json={
+                "username":username,
+                "score":score
+            })
+            with urllib.request.urlopen(url) as url:
+                data = json.load(url)
+                data = data[::-1]
+                for i in data:
+                    print(f"|{i['username']}: {i['score']}|")
 
 
 
 def start_game():
-    print("Welcome to the number guessing game, you sohuld guess number between 1 and 10")
+    print("Welcome to the number guessing game, you should guess number between 1 and 10")
     isWin = False
     default_score = 100
     attempts = 3
